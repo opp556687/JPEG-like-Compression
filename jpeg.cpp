@@ -1,10 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <cmath>
-#include <map>
-#include <sstream>
-using namespace std;
+#include "jpeg.h"
 
 #define PI acos(-1)
 double yQTable[8][8] = {{16, 11, 10, 16, 24, 40, 51, 61},
@@ -289,7 +283,7 @@ void dequantize(double input[8][8], bool isY, int QF)
     }
 }
 
-void DCT(double **input, double **output, int row = 8, int col = 8)
+void DCT(double **input, double **output, int row, int col)
 {
     double ALPHA, BETA;
     int u = 0;
@@ -333,7 +327,7 @@ void DCT(double **input, double **output, int row = 8, int col = 8)
 }
 
 // Inverse DCT
-void IDCT(double **input, double **output, int row = 8, int col = 8)
+void IDCT(double **input, double **output, int row, int col)
 {
     double ALPHA, BETA;
     int u = 0;
@@ -745,10 +739,10 @@ void decode(bool isRGB)
     // double imageData[height][width][rgb]; // use to store the decoded image data
     */
     vector<vector<vector<double>>> decodeimageData(height, vector<vector<double>>(width, vector<double>(rgb, 0))); // use to store the decoded image data
-    double blockData[8][8]; // use to stroe the data recover from zigzag
-    vector<int> rleData;    // use to stroe the run length code data
-    bool isDc = true;       // use to store which stage is current state
-    int remainBit = 0;      // use to check how many bit should receive
+    double blockData[8][8];                                                                                        // use to stroe the data recover from zigzag
+    vector<int> rleData;                                                                                           // use to stroe the run length code data
+    bool isDc = true;                                                                                              // use to store which stage is current state
+    int remainBit = 0;                                                                                             // use to check how many bit should receive
     int dc = 0;
     int prevDC = 0;
     int blockNum = 0;
@@ -1104,46 +1098,4 @@ void test() // just for quick testing
         }
         cout << endl;
     }
-}
-
-int main()
-{
-    int choice;
-    string filename;
-    int QF;
-
-    while (1)
-    {
-        menu();
-        cin >> choice;
-        switch (choice)
-        {
-        case 1:
-            cout << "Enter which file to encode: ";
-            cin >> filename;
-            cout << "Enter the quality factor to encode: ";
-            cin >> QF;
-            encode(false, 512, 512, filename, QF);
-            decode(false);
-            PSNR(false, 512, 512, filename);
-            break;
-        case 2:
-            cout << "Enter which file to encode: ";
-            cin >> filename;
-            cout << "Enter the quality factor to encode: ";
-            cin >> QF;
-            encode(true, 512, 512, filename, QF);
-            decode(true);
-            PSNR(true, 512, 512, filename);
-            break;
-        case 3:
-            exit(0);
-            break;
-        default:
-            cout << "Invalid choice!" << endl;
-            break;
-        }
-        cout << endl;
-    }
-    return 0;
 }
