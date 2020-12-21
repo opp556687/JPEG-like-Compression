@@ -1,6 +1,3 @@
----
-tags: 2020 資料壓縮作業
----
 # Data Compression HW2
 ## JPEG-like Compression
 ### 壓縮
