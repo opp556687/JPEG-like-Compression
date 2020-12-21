@@ -34,7 +34,7 @@
 * PSNR對比不同quality factor
 ![](https://i.imgur.com/jt38A3y.png)
 * PSNR越高的代表壓縮後與原圖差異越小
-* 從結果可以看到quality factor越高的PSNR越以及高灰階圖片的PSNR比彩色高
+* 從結果可以看到quality factor越高的PSNR越高以及灰階圖片的PSNR比彩色高
 #### 量化的影響
 * 因為在做量化的時候是拿DCT後的結果跟量化的表相除除完之後做四捨五入取整數把小數的部分捨去掉這邊會造成有損壓縮
 * 而且quality factor也會影響量化的結果公式如下  
